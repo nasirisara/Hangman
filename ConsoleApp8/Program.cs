@@ -8,8 +8,11 @@ namespace ConsoleApp8
         static void Main(string[] args)
         {
 
-            string secretWord = "sweden";
-            
+            string[] wordArray = new string[3] { "sweden", "denmark", "finland" };
+            Random random = new Random();
+            int index = random.Next(wordArray.Length);
+            string secretWord = wordArray[index];
+           
             
             int WrongNumber = 0;
             List<char> listguessedLetter = new List<char>();
@@ -17,12 +20,13 @@ namespace ConsoleApp8
 
             while (rightNumber != secretWord.Length && WrongNumber != 10  )
             {
+                Console.Write("\r\n");
                 Console.Write("letters guessed so far: ");
                 foreach (char letter in listguessedLetter)
                 {
-                    Console.Write("\r\n");
+                   
                     Console.Write(letter + " ");
-                }
+                } 
                 Console.Write("\nGuess a letter: ");
                 char letterGuessed =Convert .ToChar ( Console.ReadLine());
                 if (listguessedLetter.Contains(letterGuessed))
@@ -42,13 +46,27 @@ namespace ConsoleApp8
                     if (resultbool)
                     {
                         listguessedLetter.Add(letterGuessed);
-                        Console.WriteLine( letterGuessed +" is true");
                         rightNumber += 1;
+
+                        Console.Write("\r\n");
+                        foreach (char letter in secretWord )
+                        {
+                            if (listguessedLetter .Contains (letter ))
+                            {
+                                Console.Write($"{letter} ");
+                            }
+                            else
+                            {
+                                Console.Write(" " );
+                            }
+                        }
+                       
                     }
                     else
                     {
                         WrongNumber += 1;
                         listguessedLetter.Add(letterGuessed);
+                        Console.WriteLine($" You have {10-WrongNumber } chanses to guess.");
                        
                       
                     }
